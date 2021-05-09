@@ -47,7 +47,7 @@
 #define ____________RAISE__R3_L________________ _______,KC_TILD,_______,_______,_______
 #define ____________LOWER__R1_L________________ NUM__ROW___R
 #define ____________LOWER__R2_L________________ KC_BSLS,KC_MINS,KC_EQL ,KC_LBRC,KC_RBRC
-#define ____________LOWER__R3_L________________ _______,KC_GRAV,_______,_______,_______
+#define ____________LOWER__R3_L________________ _______,KC_GRAVE,_______,_______,_______
 
 // left planck yuiop
 #define ____________RAISE__R1_R________________ SYMBOLS____L
