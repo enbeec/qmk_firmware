@@ -17,4 +17,5 @@
 #pragma once
 
 #define TAPPING_TOGGLE 2
-// place overrides here
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_ANIMATIONS

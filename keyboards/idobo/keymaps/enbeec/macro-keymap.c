@@ -1,15 +1,14 @@
-#include "keymap.h"
-
-// idobo 5x15 ortholinear keyboard
-// Val's Keymap Version 01
+#include "macro-keymap.h"
 
 enum {
-	QWERTY = 0,
-    _RAISE,
-    _LOWER,
-	FN_LAY,
-	_BONUS,
-	ADJUST
+  QWERTY = 0,
+  PLANCK,
+  _RAISE,
+  _LOWER,
+  FN_LAY,
+  _BONUS,
+  GAMERR,
+  ADJUST
 };
 
 // ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -29,82 +28,112 @@ enum {
 // └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[QWERTY] = LAYOUT_ortho_5x15(
-            KC_GRAVE,   NUM__ROW___L,   NUM__ROW___R,   _______,_______,_______,_______,
-            KC_TAB,     Q___THRU___T,   Y___THRU___P,   _______,_______,_______,_______,
-            KC_ESC,     A___THRU___F,   H_THRU_COLON,   KC_ENT ,_______,_______,_______,
-            KC_LSFT,    Z___THRU___B,   N_THRU_SLASH,   KC_RSFT,_______,_______,_______,
-            FN_TAP,     TRI_L,  PLANCK_SPACE,  TRI_R,   _______,_______,_______,_______
-			),
-	[_LOWER] = LAYOUT_ortho_5x15(
-			_______,____________FUNC_KEY__L________________,____________FUNC_KEY__R________________,____________4_TRANS____________,
-            _______,____________LOWER__R1_L________________,____________LOWER__R1_R________________,____________4_TRANS____________,
-            _______,____________LOWER__R2_L________________,____________LOWER__R2_R________________,____________4_TRANS____________,
-            _______,____________LOWER__R3_L________________,____________LOWER__R3_R________________,____________4_TRANS____________,
-			_______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________
-			),
-	[_RAISE] = LAYOUT_ortho_5x15(
-			_______,____________FUNC_KEY__L________________,____________FUNC_KEY__R________________,____________4_TRANS____________,
-            _______,____________RAISE__R1_L________________,____________RAISE__R1_R________________,____________4_TRANS____________,
-            _______,____________RAISE__R2_L________________,____________RAISE__R2_R________________,____________4_TRANS____________,
-            _______,____________RAISE__R3_L________________,____________RAISE__R3_R________________,____________4_TRANS____________,
-			_______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________
-			),
-	[FN_LAY] = LAYOUT_ortho_5x15(
-			_______,____________FUNC_KEY__L________________,____________FUNC_KEY__R________________,____________4_TRANS____________,
-			_______,_______,_______, KC_UP, _______,_______,_______,_______,_______,_______,_______,____________4_TRANS____________,
-			KC_CAPS,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT,_______,____________4_TRANS____________,
-			_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,____________4_TRANS____________,
-			_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,____________4_TRANS____________
-			),
-
-	[_BONUS] = LAYOUT_ortho_5x15(
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________,
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________,
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________,
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________,
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________
-			),
-
-	[ADJUST] = LAYOUT_ortho_5x15(
-			_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-			_______,_______,_______,_______, RESET ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-			_______,_______,_______, DEBUG ,_______,_______,_______,_______,_______,_______,_______,_______,_______,RGB_TOG,_______,
-            _______,_______________5_TRANS_________________,_______________5_TRANS_________________,____________4_TRANS____________,
-            _______,_______,AG_NORM,AG_SWAP,_______,_______,_______,_______,AG_SWAP,AG_NORM,_______,____________4_TRANS____________
-			)
+ [QWERTY] = LAYOUT_ortho_5x15(
+            KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+            KC_TAB,         Q___THRU___T,                       Y___THRU___P,                       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+            ADJ_ESC,        A___THRU___F,                       H_THRU_COLON,                       KC_ENT ,XXXXXXX,XXXXXXX,XXXXXXX,
+            KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,XXXXXXX,XXXXXXX,XXXXXXX,
+            FN_TAP, TRI_L,                  PLANCK_SPACE,                                   TRI_R,  XXXXXXX,_______,TT(GAMERR),TT(PLANCK)
+   ),
+ [PLANCK] = LAYOUT_ortho_5x15(
+            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+            KC_TAB,         Q___THRU___T,                       Y___THRU___P,                       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+            ADJ_ESC,        A___THRU___F,                       H_THRU_COLON,                       KC_ENT, XXXXXXX,XXXXXXX,XXXXXXX,
+            KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,XXXXXXX,XXXXXXX,XXXXXXX,
+            FN_TAP, TRI_L,                  PLANCK_SPACE,                                   TRI_R,  XXXXXXX,_______,_______,_______
+   ),
+ [_LOWER] = LAYOUT_ortho_5x15(
+            _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,
+            _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   _______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,KC_BSLS,KC_MINS,KC_EQL ,KC_LBRC,KC_RBRC,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,KC_GRV ,KC_QUOT,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+   ),
+ [_RAISE] = LAYOUT_ortho_5x15(
+            _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,
+            _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,KC_PIPE,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,_______,_______,_______,_______,
+            _______,_______,KC_TILD,_______,_______,_______,_______,KC_TILD,KC_DQUO,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+   ),
+ [FN_LAY] = LAYOUT_ortho_5x15(
+            _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, _______,_______,_______,_______,
+            _______,_______,_______, KC_UP, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            KC_CAPS,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+   ),
+ [_BONUS] = LAYOUT_ortho_5x15(
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+   ),
+ [GAMERR] = LAYOUT_ortho_5x15(
+            KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL ,_______,_______,
+            KC_TAB,         Q___THRU___T,                       Y___THRU___P,                       KC_LBRC,KC_RBRC,KC_BSPACE,_______,
+            ADJ_ESC,        A___THRU___F,                       H_THRU_COLON,                       KC_ENT ,_______,_______,_______,
+            KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,_______,_______,_______,
+            FN_TAP, TRI_L,               KC_SPACE,KC_SPACE,KC_SPACE,KC_SPACE,                TRI_R, _______,_______,_______,_______
+   ),
+ [ADJUST] = LAYOUT_ortho_5x15(
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______,_______, RESET ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,_______, DEBUG ,_______,_______,_______,_______,_______,_______,_______,_______,_______,RGB_TOG,_______,
+            _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+            _______,_______,AG_NORM,AG_SWAP,_______,_______,_______,_______,AG_SWAP,AG_NORM,_______,_______,_______,_______,_______
+   )
 
 };
 
 uint8_t prev = QWERTY;
 uint32_t check;
 uint32_t desired = 9;
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 10}; // Set the last one to 10ms for some speedy swirls
 
 void matrix_init_user() {
-	rgblight_sethsv(HSV_PURPLE);
+ rgblight_sethsv(HSV_PURPLE);
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-	uint8_t layer = biton32(state);
-	/* no color change for adjustments layer */
-	if (prev != ADJUST) {
-		switch (layer) {
-			case QWERTY:
-				rgblight_sethsv(HSV_PURPLE);
-				break;
-			case FN_LAY:
-				rgblight_sethsv(HSV_WHITE);
-				break;
-			case _BONUS:
-				rgblight_sethsv(HSV_ORANGE);
-				break;
-			case ADJUST:
-				break;
-		}
-	} else {
-		desired = rgblight_get_mode();
-	}
-	prev = layer;
-	return state;
-}
+ uint8_t layer = biton32(state);
 
+ if (prev != ADJUST) {
+  switch (layer) {
+   case QWERTY:
+    rgblight_mode(1);// static
+    rgblight_sethsv(HSV_PURPLE);
+    break;
+   case PLANCK:
+    rgblight_mode(3); // breathing
+    rgblight_sethsv(HSV_PURPLE);
+    break;
+   case _RAISE:
+    if (rgblight_get_mode() == 3) { // no change for QWERTY
+        rgblight_mode(14); // high swirl
+    }
+    break;
+   case _LOWER:
+    if (rgblight_get_mode() == 3) { // no change for QWERTY
+        rgblight_mode(9); // low swirl
+    }
+    break;
+   case FN_LAY:
+    rgblight_sethsv(HSV_WHITE);
+    break;
+   case _BONUS:
+    rgblight_sethsv(HSV_ORANGE);
+    break;
+    case GAMERR:
+    rgblight_sethsv(HSV_GREEN);
+    break;
+   case ADJUST:
+    break;
+  }
+ } else {
+  desired = rgblight_get_mode();
+ }
+ prev = layer;
+ return state;
+}
