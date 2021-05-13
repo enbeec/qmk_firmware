@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TAB,         Q___THRU___T,                       Y___THRU___P,                       KC_LBRC,KC_RBRC,KC_BSPACE,_______,
             ADJ_ESC,        A___THRU___F,                       H_THRU_COLON,                       KC_ENT ,_______,_______,_______,
             KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,_______,_______,_______,
-            FN_TAP, TRI_L,               KC_SPACE,KC_SPACE,KC_SPACE,KC_SPACE,                TRI_R, _______,_______,_______,_______
+            FN_TAP, TRI_L,               KC_SPACE,XXXXXXX,KC_SPACE,KC_SPACE,                TRI_R, _______,_______,_______,_______
    ),
  [ADJUST] = LAYOUT_ortho_5x15(
             _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
