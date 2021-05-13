@@ -36,7 +36,7 @@
 #define _______________5_TRANS_________________ _______,_______,_______,_______,_______
 
 // planck spacebar
-#define PLANCK_SPACE    LOWER_BSPC,FN_SPC,FN_SPC,RAISE_ENT
+#define PLANCK_SPACE    LOWER_BSPC,FN_SPC,XXXXXXX,RAISE_ENT
 
 #define ____________FUNC_KEY__L________________ KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5
 #define ____________FUNC_KEY__R________________ KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10
