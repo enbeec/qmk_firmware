@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,XXXXXXX,XXXXXXX,XXXXXXX,
             KC_TAB,         Q___THRU___T,                       Y___THRU___P,                       KC_DEL, XXXXXXX,XXXXXXX,XXXXXXX,
             ADJ_ESC,        A___THRU___F,                       H_THRU_COLON,                       KC_ENT ,XXXXXXX,XXXXXXX,XXXXXXX,
-            KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,KC_BTN1,XXXXXXX,KC_BTN2,
+            KC_LSFT,        Z___THRU___B,                       N_THRU_SLASH,                       KC_RSFT,KC_BTN1,KC_LOCK,KC_BTN2,
             FN_TAP, TRI_L,                  PLANCK_SPACE,                                   TRI_R,  XXXXXXX,_______,TT(GAMERR),TT(PLANCK)
    ),
  [PLANCK] = LAYOUT_ortho_5x15(
