@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "jotanck.h"
 
 void keyboard_pre_init_kb(void) {
-    gpio_set_pin_output(JOTANCK_LED1);
-    gpio_set_pin_output(JOTANCK_LED2);
+    setPinOutput(JOTANCK_LED1);
+    setPinOutput(JOTANCK_LED2);
     
     keyboard_pre_init_user();
 }

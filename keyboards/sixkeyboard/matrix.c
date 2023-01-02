@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "timer.h"
+#include "sixkeyboard.h"
 #include <string.h>
 
 /* matrix state(1:on, 0:off) */
@@ -71,12 +71,13 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    gpio_set_pin_input_high(C7);
-    gpio_set_pin_input_high(B5);
-    gpio_set_pin_input_high(B7);
-    gpio_set_pin_input_high(D1);
-    gpio_set_pin_input_high(D4);
-    gpio_set_pin_input_high(D6);
+
+    DDRC  &= ~(1<<7);
+    PORTC |=  (1<<7);
+    DDRB  &= ~(1<<7 | 1<<5);
+    PORTB |=  (1<<7 | 1<<5);
+    DDRD  &= ~(1<<6 | 1<<4 | 1<<1);
+    PORTD |=  (1<<6 | 1<<4 | 1<<1);
 
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;

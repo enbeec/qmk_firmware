@@ -17,9 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "matrix.h"
-#include "debug.h"
-#include "wait.h"
+#include QMK_KEYBOARD_H
 #include "uart.h"
 #include "timer.h"
 
@@ -95,27 +93,27 @@ void pins_init(void) {
  // set pins for pullups, Rts , power &etc. 
 
     //print ("pins setup\n");
-    gpio_set_pin_output(VCC_PIN);
-    gpio_write_pin_low(VCC_PIN);
+    setPinOutput(VCC_PIN);
+    writePinLow(VCC_PIN);
 
 #if ( HANDSPRING == 0)
 
 #ifdef CY835
-    gpio_set_pin_output(GND_PIN);
-    gpio_write_pin_low(GND_PIN);
+    setPinOutput(GND_PIN);
+    writePinLow(GND_PIN);
 
-    gpio_set_pin_output(PULLDOWN_PIN);
-    gpio_write_pin_low(PULLDOWN_PIN);
+    setPinOutput(PULLDOWN_PIN);
+    writePinLow(PULLDOWN_PIN);
 #endif
 
-    gpio_set_pin_input(DCD_PIN);
-    gpio_set_pin_input(RTS_PIN);
+    setPinInput(DCD_PIN);
+    setPinInput(RTS_PIN);
 #endif
 
 /* check that the other side isn't powered up. 
-    test=gpio_read_pin(DCD_PIN);
+    test=readPin(DCD_PIN);
     xprintf("b%02X:", test);
-    test=gpio_read_pin(RTS_PIN);
+    test=readPin(RTS_PIN);
     xprintf("%02X\n", test);
 */
  
@@ -128,22 +126,22 @@ uint8_t rts_reset(void) {
 // On boot, we keep rts as input, then switch roles here
 // on leaving sleep, we toggle the same way
 
-    firstread=gpio_read_pin(RTS_PIN);
+    firstread=readPin(RTS_PIN);
    // printf("r%02X:", firstread);
 
-    gpio_set_pin_output(RTS_PIN);
+    setPinOutput(RTS_PIN);
 
     if (firstread) {
-        gpio_write_pin_low(RTS_PIN);
+        writePinLow(RTS_PIN);
     } 
-     wait_ms(10);
-    gpio_write_pin_high(RTS_PIN);
+     _delay_ms(10);
+    writePinHigh(RTS_PIN);
     
 
 /* the future is Arm 
     if (!palReadPad(RTS_PIN_IOPRT))
   {
-    wait_ms(10);
+    _delay_ms(10);
     palSetPadMode(RTS_PINn_IOPORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
   }
@@ -152,13 +150,13 @@ uint8_t rts_reset(void) {
     palSetPadMode(RTS_PIN_RTS_PORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
     palClearPad(RTS_PORT, RTS_PIN);
-    wait_ms(10);
+    _delay_ms(10);
     palSetPad(RTS_PORT, RTS_PIN);
   }
 */
 
 
- wait_ms(5);  
+ _delay_ms(5);  
  //print("rts\n");
  return 1;
 }
@@ -168,7 +166,7 @@ uint8_t get_serial_byte(void) {
     while(1) {
         code = uart_read();
         if (code) { 
-            dprintf("%02X ", code);
+            debug_hex(code); debug(" ");
             return code;
         }
     }
@@ -223,9 +221,9 @@ uint8_t handspring_handshake(void) {
 }
 
 uint8_t handspring_reset(void) {
-    gpio_write_pin_low(VCC_PIN);
-    wait_ms(5);
-    gpio_write_pin_high(VCC_PIN);
+    writePinLow(VCC_PIN);
+    _delay_ms(5);
+    writePinHigh(VCC_PIN);
 
     if ( handspring_handshake() ) {
         last_activity = timer_read();
@@ -249,7 +247,7 @@ void matrix_init(void)
 #endif
 
     print("power up\n");
-    gpio_write_pin_high(VCC_PIN);
+    writePinHigh(VCC_PIN);
 
     // wait for DCD strobe from keyboard - it will do this 
     // up to 3 times, then the board needs the RTS toggled to try again
@@ -259,12 +257,12 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        wait_ms(1000);
+        _delay_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 
 #else  /// Palm / HP  device with DCD
-    while( !gpio_read_pin(DCD_PIN) ) {;} 
+    while( !readPin(DCD_PIN) ) {;} 
     print("dcd\n");
 
     rts_reset(); // at this point the keyboard should think all is well. 
@@ -273,7 +271,7 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        wait_ms(1000);
+        _delay_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 
@@ -316,7 +314,8 @@ uint8_t matrix_scan(void)
    last_activity = timer_read();
    disconnect_counter=0; // if we are getting serial data, we're connected. 
 
-    dprintf("%02X ", code);
+    debug_hex(code); debug(" ");
+
 
     switch (code) {
         case 0xFD:  // unexpected reset byte 2

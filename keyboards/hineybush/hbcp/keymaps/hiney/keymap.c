@@ -15,6 +15,13 @@
  */
 #include QMK_KEYBOARD_H
 
+// Defines the keycodes used by our macros in process_record_user
+enum custom_keycodes {
+  QMKBEST = SAFE_RANGE,
+  ALTCUT,
+  QMKURL
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_wkl( /* Base */
@@ -38,25 +45,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case ALTCUT:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        send_string_with_delay_P(PSTR(SS_TAP(X_TAB)SS_TAP(X_T)SS_TAP(X_V)SS_TAP(X_B)), 20); // altium macro
+      } else {
+        // when keycode QMKBEST is released
+      }
+      break;
+    case QMKURL:
+      if (record->event.pressed) {
+        // when keycode QMKURL is pressed
+        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+      } else {
+        // when keycode QMKURL is released
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_init_user(void) {
+
+}
+
+void matrix_scan_user(void) {
+
+}
+
 #ifdef RGBLIGHT_ENABLE
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        rgblight_sethsv_at(HSV_SOFT_RED, 0);
+void led_set_user(uint8_t usb_led) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        sethsv_raw(HSV_SOFT_RED, (LED_TYPE *)&led[0]);
     } else {
-        rgblight_sethsv_at(HSV_BLACK, 0);
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
     }
-    if (led_state.num_lock) {
-        rgblight_sethsv_at(HSV_WARM_WHITE, 1);
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        sethsv_raw(HSV_WARM_WHITE, (LED_TYPE *)&led[1]);
     } else {
-        rgblight_sethsv_at(HSV_BLACK, 1);
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
     }
-    if (led_state.scroll_lock) {
-        rgblight_sethsv_at(HSV_SOFT_BLUE, 2);
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+        sethsv_raw(HSV_SOFT_BLUE, (LED_TYPE *)&led[2]);
     } else {
-        rgblight_sethsv_at(HSV_BLACK, 2);
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
     }
-    return false;
+    rgblight_set();
 }
 
 #endif

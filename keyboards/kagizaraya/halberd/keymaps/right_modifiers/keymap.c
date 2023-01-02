@@ -25,7 +25,8 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  LOWER = SAFE_RANGE,
+  QWERTY = SAFE_RANGE,
+  LOWER,
   RAISE,
   ADJUST,
 };
@@ -111,6 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        // persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -138,4 +145,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+void matrix_init_user(void) {
+
+}
+
+void matrix_scan_user(void) {
+
+}
+
+void led_set_user(uint8_t usb_led) {
+
 }

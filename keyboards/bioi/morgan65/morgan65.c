@@ -12,17 +12,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include "morgan65.h"
 
 void keyboard_pre_init_kb(void) {
-    gpio_set_pin_output(F0);
-    gpio_write_pin_high(F0);
+    setPinOutput(F0);
+    writePinHigh(F0);
     keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        gpio_write_pin(F0, !led_state.caps_lock);
+        writePin(F0, !led_state.caps_lock);
     }
     return true;
 }

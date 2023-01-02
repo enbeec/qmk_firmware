@@ -1,8 +1,7 @@
 // Copyright 2022 Andy Tsai (@atsai)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
-
+#include QMK_KEYBOARD_H
 static uint16_t buzzer_timer = 0;
 static uint8_t buzzer_dwell = 15;
 static uint8_t buzzer_dwell_change = 1;
@@ -28,7 +27,7 @@ enum custom_keycodes{
 
 // Documentation: custom_quantum_functions.md
 void keyboard_post_init_kb(void){
-    gpio_set_pin_output(BUZZER_PIN);
+    setPinOutput(BUZZER_PIN);
     keyboard_post_init_user();
 }
 
@@ -36,7 +35,7 @@ void housekeeping_task_kb(void){
     if(buzzer_on){
         if(buzzer_active && timer_elapsed(buzzer_timer) > buzzer_dwell){
         buzzer_active = false;
-        gpio_write_pin_low(BUZZER_PIN);
+        writePinLow(BUZZER_PIN);
         }
     }
     housekeeping_task_user();
@@ -50,7 +49,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if(!buzzer_active){
                 buzzer_active = true;
                 buzzer_timer = timer_read();
-                gpio_write_pin_high(BUZZER_PIN);
+                writePinHigh(BUZZER_PIN);
             }
         }
 
@@ -94,10 +93,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if(buzzer_on == true){
                     buzzer_active = true;
                     buzzer_timer = timer_read();
-                    gpio_write_pin_high(BUZZER_PIN);
+                    writePinHigh(BUZZER_PIN);
                 }
                 else{
-                    gpio_write_pin_low(BUZZER_PIN);
+                    writePinLow(BUZZER_PIN);
                 }
                 break;
 

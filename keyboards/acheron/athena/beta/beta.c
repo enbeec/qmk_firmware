@@ -14,21 +14,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "beta.h"
+
 
 void board_init(void) {
-    gpio_set_pin_input(B6);
-    gpio_set_pin_input(B7);
+    setPinInput(B6);
+    setPinInput(B7);
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     #ifdef CAPSLOCK_INDICATOR
     if(res) {
-        gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
     }
     #else
-    gpio_write_pin(LED_CAPS_LOCK_PIN, 0);
+    writePin(LED_CAPS_LOCK_PIN, 0);
     #endif
     return res;
 }

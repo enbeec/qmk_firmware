@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "rev1.h"
 
 void board_init(void) {
-    gpio_write_pin_low(A8);
+    writePinLow(A8);
 }
 
 void bootloader_jump(void) {
@@ -29,6 +29,4 @@ void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(5, 255, 255);
     rgblight_mode_noeeprom(37);
-
-    keyboard_post_init_user();
 }

@@ -11,18 +11,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-#include "quantum.h"
+#include "bolsa65.h"
 
 void matrix_init_kb(void) {
     // Initialize indicator LEDs to output
-    gpio_set_pin_output(F7); // Caps
+    setPinOutput(F7); // Caps
     matrix_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        gpio_write_pin(F7, led_state.caps_lock);
+        writePin(F7, led_state.caps_lock);
     }
     return res;
 }
